@@ -1,0 +1,14 @@
+@import "../../index.scss";
+
+.text--hero{
+    font-family: $intestazioni;
+}
+
+.btn--hero--text{
+    font-family: $intestazioni;
+}
+
+.btn--hero:hover{
+    background-color: $btnHoverSecondary;
+
+}

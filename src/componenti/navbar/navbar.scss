@@ -1,0 +1,22 @@
+@import "../../index.scss";
+
+.logoBrand{
+    font-family: $logoFont;
+    font-size: 32px;
+    font-weight: 400;
+}
+
+.navbar--link{
+
+    font-family: $intestazioni;
+    font-size: 16px;
+    font-weight: 600;
+    color: $quaternaryC;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar--link:hover{
+    transform: scale(1.25);
+    color: #ecc94bd6;
+
+}

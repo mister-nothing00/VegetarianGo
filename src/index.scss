@@ -1,0 +1,59 @@
+
+//FONT 
+
+$logoFont:'Pacifico', cursive;
+
+$intestazioni: 'Raleway', sans-serif;
+
+$testo:'Alegreya', serif;
+
+/* ------------PALETTE COLORI PRINCIPALI--------------- */
+
+$primaryC: #4CAF50;
+$secondaryC: #FF5722 ;
+$terziaryC: #FFFFFF;
+$quaternaryC: #BDBDBD;
+$neutroC:#222;   
+
+
+/* ------------PALETTE BUTTON--------------- */
+
+
+$btnPrimary: #FF5722; //TESTO COLORE : # FFFFFFF, Funzione: INVIO, REGISTRATI / AGGIUNGI AL CARRELLO;
+$btnSecondary: #4CAF50 ; //TESTO COLORE : # FFFFFFF Funzione: annulla, salva come bozza;
+$actionBtn: #FFC107; //TESTO COLORE : #212121; Funzione: Carica di più, dettagli.
+$neutroBtn:#E0E0E0; //TESTO COLORE : #212121; 
+
+
+/* ------------PALETTE BUTTON HOVER--------------- */
+
+
+$btnHoverPrimary: #E64A19; //TESTO COLORE : # FFFFFFF;
+$btnHoverSecondary: #388E3C ; //TESTO COLORE : # FFFFFFF;
+$testoHover: #FFFFFF; 
+
+
+
+
+
+/* --------------------------- */
+/*INTESTAZIONI*/
+
+h1, h2, h3, h4, h5, h6{
+    font-family: $intestazioni;
+}
+
+
+/*CORPO TESTO*/
+
+p, span, li{
+    font-family: $testo;
+    font-size: 16px;
+    line-height: 1.5em;
+}
+html{
+    scroll-behavior: smooth;
+}
+
+
+
