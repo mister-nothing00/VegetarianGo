@@ -1,3 +1,5 @@
 # VegetarianGo
 
-## Il sito per vegetarian e vegani
+## Il sito per vegetariani e vegani
+
+## LINK : https://vegetatariang0.web.app/
