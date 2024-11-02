@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Box,
   Flex,
-  Text,
   IconButton,
   Drawer,
   DrawerOverlay,
@@ -16,6 +15,7 @@ import {
   Icon,
   useDisclosure,
 } from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import "./navbar.scss";
@@ -38,9 +38,16 @@ export default function Navbar() {
         zIndex={999}
       >
         <Box>
-          <Text color={"green"} className="logoBrand">
+          <Link
+            as={RouterLink}
+            to="/"
+            color={"green"}
+            className="logoBrand"
+            textDecoration={"none"}
+            _hover={{ textDecoration: "none" }}
+          >
             VegetarianGo
-          </Text>
+          </Link>
         </Box>
 
         <Flex
@@ -48,15 +55,39 @@ export default function Navbar() {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Text className="navbar--link" color={"green.500"} mx={2} cursor={"pointer"}>
+          <Link
+            as={RouterLink}
+            to="/"
+            className="navbar--link"
+            color={"green.500"}
+            _hover={{color:"green.400"}}
+            mx={2}
+            cursor={"pointer"}
+          >
             Home
-          </Text>
-          <Text className="navbar--link" mx={2} cursor={"pointer"}>
+          </Link>
+          <Link
+            as={RouterLink}
+            to="recipes"
+            className="navbar--link"
+            mx={2}
+            cursor={"pointer"}
+            textDecoration={"none"}
+            _hover={{ textDecoration: "none" }}
+          >
             Recipes
-          </Text>
-          <Text className="navbar--link" mx={2} cursor={"pointer"}>
+          </Link>
+          <Link
+            as={RouterLink}
+            to="/contact"
+            className="navbar--link"
+            mx={2}
+            cursor={"pointer"}
+            textDecoration={"none"}
+            _hover={{ textDecoration: "none" }}
+          >
             Contact
-          </Text>
+          </Link>
         </Flex>
 
         <IconButton
@@ -86,8 +117,7 @@ export default function Navbar() {
                 _hover={{
                   color: "green.400",
                   transition: "color 0.2s ease-out",
-                  fontWeight:"bold"
-              
+                  fontWeight: "bold",
                 }}
               >
                 About
@@ -101,7 +131,7 @@ export default function Navbar() {
                 _hover={{
                   color: "green.400",
                   transition: "color 0.2s ease-out",
-                   fontWeight:"bold"
+                  fontWeight: "bold",
                 }}
               >
                 Info
@@ -115,7 +145,7 @@ export default function Navbar() {
                 _hover={{
                   color: "green.400",
                   transition: "color 0.2s ease-out",
-                   fontWeight:"bold"
+                  fontWeight: "bold",
                 }}
               >
                 Contact

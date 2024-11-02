@@ -21,7 +21,7 @@ import {
   import { useState, useEffect } from "react";
   
   export default function Footer() {
-    // Variabile dinamica per l'anno corrente
+    
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   
     useEffect(() => {
@@ -83,7 +83,7 @@ import {
                     boxSize={4}
                     color="gray.400"
                     transition="color 0.3s ease-in-out"
-                    _hover={{ color: "yellow.500", transition: "color 0.2s ease-in-out" }}
+                    _hover={{ color: "green.500", transition: "color 0.2s ease-in-out" }}
                   />
                 </Link>
                 <Link href="#" isExternal>
@@ -92,7 +92,7 @@ import {
                     boxSize={4}
                     color="gray.400"
                     transition="color 0.3s ease-in-out"
-                    _hover={{ color: "yellow.500", transition: "color 0.2s ease-in-out" }}
+                    _hover={{ color: "green.500", transition: "color 0.2s ease-in-out" }}
                   />
                 </Link>
                 <Link href="#" isExternal>
@@ -101,7 +101,7 @@ import {
                     boxSize={4}
                     color="gray.400"
                     transition="color 0.3s ease-in-out"
-                    _hover={{ color: "yellow.500", transition: "color 0.2s ease-in-out" }}
+                    _hover={{ color: "green.500", transition: "color 0.2s ease-in-out" }}
                   />
                 </Link>
               </HStack>
@@ -146,10 +146,11 @@ import {
                   Ricette
                 </Link>
                 <Link
+                
                   href="#"
                   color="gray.300"
                   fontSize={"sm"}
-                  _hover={{ color: "yellow.500" }}
+                  _hover={{ color: "green.500" }}
                 >
                   Contact
                 </Link>

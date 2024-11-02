@@ -6,6 +6,7 @@ import Footer from "../../componenti/footer/Footer";
 import Hero from "../../componenti/hero/Hero";
 import SearchBox from "../../componenti/search/Search";
 import Testimonials from "../../componenti/testimonials/Testimonials";
+import Contact from "../../componenti/contact/Contact";
 
 export default function Home() {
   const [recipes, setRecipes] = useState([]);
@@ -18,6 +19,7 @@ export default function Home() {
       <Benefici />
       <About />
       <Testimonials />
+      <Contact/>
       <Footer />
     </>
   );
