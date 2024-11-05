@@ -11,19 +11,20 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalBody,
   ModalFooter,
   ModalCloseButton,
   Link,
   Flex,
 } from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
 import { useState } from "react";
 
-export default function Card({ title, image, ingredients, sourceUrl }) {
+export default function Card({ id, title, image, ingredients, rating }) {
   const [isOpen, setIsOpen] = useState(false);
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
+  console.log(id);
 
   return (
     <Box>
@@ -55,9 +56,16 @@ export default function Card({ title, image, ingredients, sourceUrl }) {
             >
               Ingredienti: {ingredients}
             </Text>
+            <Text
+              fontFamily="'Alegreya', serif"
+              color="#222"
+              fontSize="16px"
+              lineHeight="1.5"
+              letterSpacing={0.8}
+            >
+              <b>Rating </b>: {rating}
+            </Text>
             <Button
-              //as="a"
-              //href={sourceUrl}
               onClick={onOpen}
               target="_blank"
               background="linear-gradient(90deg, teal 0%, cyan 100%)"
@@ -116,23 +124,27 @@ export default function Card({ title, image, ingredients, sourceUrl }) {
           </ModalBody>
           <ModalFooter>
             <Flex justifyContent="space-between" width="100%" mb={4}>
-              <Button
-                as="a"
-                href={sourceUrl}
-                target="_blank"
-                bgColor={"yellow.500"}
-                p={2}
-                borderRadius={8}
-                boxShadow=" 0 2px 5px rgba(0, 0, 0, 0.2)"
-                transition={"ackground-color 0.3s ease-in-out"}
-                _hover={{
-                  bg: "whiteAlpha.900",
-                  boxShadow: "inset 0 4px 8px rgba(0, 0, 0, 0.2)",
-                  transition: "background-color 0.3s ease-in-out",
-                }}
+              <Link
+                as={RouterLink}
+                to={`/recipes/${id}`}
+                target="_self"
+                _hover={{ textDecoration: "none" }}
               >
-                Scopri di più
-              </Button>
+                <Button
+                  bgColor={"yellow.500"}
+                  p={2}
+                  borderRadius={8}
+                  boxShadow=" 0 2px 5px rgba(0, 0, 0, 0.2)"
+                  transition={"ackground-color 0.3s ease-in-out"}
+                  _hover={{
+                    bg: "whiteAlpha.900",
+                    boxShadow: "inset 0 4px 8px rgba(0, 0, 0, 0.2)",
+                    transition: "background-color 0.3s ease-in-out",
+                  }}
+                >
+                  Scopri di più
+                </Button>
+              </Link>
               <Button colorScheme="green" onClick={onClose}>
                 Chiudi
               </Button>

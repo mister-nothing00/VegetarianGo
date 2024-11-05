@@ -3,16 +3,20 @@ import "./index.scss";
 import ContactPage from "./pages/contact/ContactPage";
 import Home from "./pages/home/Home";
 import { Routes, Route } from "react-router-dom";
+import Recipes from "./pages/recipes/Recipes";
+import { RecipesProvider } from "./hooks/RecipesContext";
 
 function App() {
   return (
     <>
-    <Navbar/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/recipes" element=""/>
-        <Route path="/contact" element={<ContactPage/>}/>
-      </Routes>
+      <RecipesProvider>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/recipes/:id" element={<Recipes />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+      </RecipesProvider>
     </>
   );
 }

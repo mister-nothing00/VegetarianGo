@@ -11,11 +11,14 @@ import { GiFruitBowl } from "react-icons/gi";
 import { useState } from "react";
 import Card from "../card/Card";
 import CustomDivider from "../divider/CustomDivider";
+import { useRecipes } from "../../hooks/RecipesContext";
 
-export default function Cards({ recipes }) {
+export default function Cards() {
+  const { recipes } = useRecipes();
   const [index, setIndex] = useState(0);
   const visibleCards = useBreakpointValue({ base: 1, sm: 2, md: 3 });
 
+  
   const handleNext = () => {
     setIndex((prevIndex) => (prevIndex + 1) % recipes.length);
   };
@@ -106,10 +109,10 @@ export default function Cards({ recipes }) {
             recipes.slice(index, index + visibleCards).map((recipe, i) => (
               <Flex key={i} mx={2} minW="30%" my={5}>
                 <Card
+                  id={recipe.id}
                   title={recipe.title}
                   image={recipe.image}
-                  ingredients={recipe.ingredients} 
-                  fullDescription={recipe.fullDescription} 
+                  ingredients={recipe.ingredients}
                   rating={recipe.rating}
                   sourceUrl={recipe.sourceUrl}
                 />
