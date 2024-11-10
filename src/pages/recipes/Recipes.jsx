@@ -4,18 +4,18 @@ import { useParams, Link as RouterLink } from "react-router-dom";
 import { useRecipes } from "../../hooks/RecipesContext";
 
 export default function Recipes() {
+  const { id } = useParams(); // Assicurati di ottenere l'ID dalla URL
   const { recipes } = useRecipes();
-
   const recipe = recipes.find((recipe) => recipe.id === parseInt(id));
 
   return (
-    <Box display={"block"} width={"90%"} mx={"auto"}>
+    <Box display={"block"}  width={"90%"} mx={"auto"}>
       {recipe ? (
         <Box
           key={recipe.id}
           display={"flex"}
           flexDir={"column"}
-          alignItems={"center"}
+          alignItems={"flex-start"}
           my={20}
         >
           <Image
@@ -28,7 +28,22 @@ export default function Recipes() {
           />
           <Heading mb={10}>{recipe.title}</Heading>
           <Text>
-            <b>Ingredients </b>: {recipe.ingredients}
+            <b>Ingredienti </b>: {recipe.ingredients}
+          </Text>
+          <Text>
+            <b>Istruzioni </b>:
+            <ul>
+              {recipe.instructions
+                .split("<li>")
+                .filter((instruction) => instruction)
+                .map((instruction, index) => (
+                  <li key={index}>{instruction.replace("</li>", "").trim()}</li>
+                ))}
+            </ul>
+          </Text>
+
+          <Text mt={5}>
+            <b>Tempo di preparazione </b>: {recipe.readyInMinutes} minuti
           </Text>
           <Link
             as={RouterLink}

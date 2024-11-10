@@ -9,13 +9,13 @@ import Contact from "../../componenti/contact/Contact";
 import { useRecipes } from "../../hooks/RecipesContext";
 
 export default function Home() {
-  const {recipes, setRecipes} = useRecipes();
+  const {recipes} = useRecipes();
   
 
   return (
     <>
       <Hero />
-      <SearchBox  setRecipes={setRecipes}/> 
+      <SearchBox/> 
       <Cards recipes={recipes}/> 
       <Benefici />
       <About />

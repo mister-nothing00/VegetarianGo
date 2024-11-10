@@ -19,12 +19,16 @@ import {
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { useState } from "react";
+import { useRecipes } from "../../hooks/RecipesContext"; // Importa il contesto
 
-export default function Card({ id, title, image, ingredients, rating }) {
+export default function Card({ id }) {
+  const { recipes } = useRecipes(); // Ottieni le ricette dal contesto
+  const recipe = recipes.find((recipe) => recipe.id === id); // Trova la ricetta in base all'ID
   const [isOpen, setIsOpen] = useState(false);
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
-  console.log(id);
+
+  if (!recipe) return null; // Se la ricetta non esiste, non renderizzare nulla
 
   return (
     <Box>
@@ -36,8 +40,8 @@ export default function Card({ id, title, image, ingredients, rating }) {
       >
         <CardBody>
           <Image
-            src={image}
-            alt={title}
+            src={recipe.image}
+            alt={recipe.title}
             borderRadius="md"
             w="100%"
             h="200px"
@@ -45,7 +49,7 @@ export default function Card({ id, title, image, ingredients, rating }) {
           />
           <Stack mt="4" mb="4" spacing="3">
             <Heading size="md" fontFamily="'Raleway', sans-serif" color="#222">
-              {title}
+              {recipe.title}
             </Heading>
             <Text
               fontFamily="'Alegreya', serif"
@@ -54,7 +58,7 @@ export default function Card({ id, title, image, ingredients, rating }) {
               lineHeight="1.5"
               letterSpacing={0.8}
             >
-              Ingredienti: {ingredients}
+              Ingredienti: {recipe.ingredients}
             </Text>
             <Text
               fontFamily="'Alegreya', serif"
@@ -63,7 +67,7 @@ export default function Card({ id, title, image, ingredients, rating }) {
               lineHeight="1.5"
               letterSpacing={0.8}
             >
-              <b>Rating </b>: {rating}
+              <b>Rating </b>: {recipe.rating}
             </Text>
             <Button
               onClick={onOpen}
@@ -95,7 +99,7 @@ export default function Card({ id, title, image, ingredients, rating }) {
         <ModalContent>
           <ModalCloseButton />
           <ModalBody>
-            <Image src={image} alt={title} mb={4} />
+            <Image src={recipe.image} alt={recipe.title} mb={4} />
             <Text
               my={4}
               fontFamily={"Pacifico"}
@@ -103,7 +107,7 @@ export default function Card({ id, title, image, ingredients, rating }) {
               fontWeight={"bold"}
               color={"blackAlpha.700"}
             >
-              {title}
+              {recipe.title}
             </Text>
             <Text
               mb={2}
@@ -119,14 +123,23 @@ export default function Card({ id, title, image, ingredients, rating }) {
               mb={4}
               fontSize={"16px"}
             >
-              {ingredients}
+              {recipe.ingredients}
+            </Text>
+
+            <Text
+              fontFamily={"Alegreya"}
+              color={"gray.400"}
+              mb={4}
+              fontSize={"16px"}
+            >
+              <b>Tempo di preparazione</b>: {recipe.readyInMinutes} minuti
             </Text>
           </ModalBody>
           <ModalFooter>
             <Flex justifyContent="space-between" width="100%" mb={4}>
               <Link
                 as={RouterLink}
-                to={`/recipes/${id}`}
+                to={`/recipes/${recipe.id}`}
                 target="_self"
                 _hover={{ textDecoration: "none" }}
               >
@@ -134,8 +147,8 @@ export default function Card({ id, title, image, ingredients, rating }) {
                   bgColor={"yellow.500"}
                   p={2}
                   borderRadius={8}
-                  boxShadow=" 0 2px 5px rgba(0, 0, 0, 0.2)"
-                  transition={"ackground-color 0.3s ease-in-out"}
+                  boxShadow="0 2px 5px rgba(0, 0, 0, 0.2)"
+                  transition={"background-color 0.3s ease-in-out"}
                   _hover={{
                     bg: "whiteAlpha.900",
                     boxShadow: "inset 0 4px 8px rgba(0, 0, 0, 0.2)",

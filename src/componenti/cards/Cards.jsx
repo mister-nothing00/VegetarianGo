@@ -110,11 +110,6 @@ export default function Cards() {
               <Flex key={i} mx={2} minW="30%" my={5}>
                 <Card
                   id={recipe.id}
-                  title={recipe.title}
-                  image={recipe.image}
-                  ingredients={recipe.ingredients}
-                  rating={recipe.rating}
-                  sourceUrl={recipe.sourceUrl}
                 />
               </Flex>
             ))
