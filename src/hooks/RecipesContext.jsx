@@ -9,12 +9,15 @@ const RecipesContext = createContext();
 export const RecipesProvider = ({ children }) => {
   const [recipes, setRecipes] = useState([]);
   const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(false);
   const showToast = useShowToast();
 
   const handleSearch = async () => {
     if (!query) return;
-
-    const API_URL = `https://api.spoonacular.com/recipes/complexSearch?query=${query}&apiKey=${import.meta.env.VITE_API_KEY}`;
+    setLoading(true);
+    const API_URL = `https://api.spoonacular.com/recipes/complexSearch?query=${query}&apiKey=${
+      import.meta.env.VITE_API_KEY
+    }`;
 
     try {
       const response = await axios.get(API_URL);
@@ -24,7 +27,9 @@ export const RecipesProvider = ({ children }) => {
       const recipesWithDetails = await Promise.all(
         recipeIds.map(async (id) => {
           const detailResponse = await axios.get(
-            `https://api.spoonacular.com/recipes/${id}/information?apiKey=${import.meta.env.VITE_API_KEY}`
+            `https://api.spoonacular.com/recipes/${id}/information?apiKey=${
+              import.meta.env.VITE_API_KEY
+            }`
           );
           return {
             id: id,
@@ -48,6 +53,8 @@ export const RecipesProvider = ({ children }) => {
       fetchBulkRecipeDetails(recipeIds);
     } catch (error) {
       showToast("Errore", error.message, "error");
+    }finally {
+      setLoading(false); // Termina il caricamento
     }
   };
 
@@ -55,13 +62,15 @@ export const RecipesProvider = ({ children }) => {
   const fetchBulkRecipeDetails = async (recipeIds) => {
     if (!recipeIds || recipeIds.length === 0) return;
 
-    const API_URL = `https://api.spoonacular.com/recipes/informationBulk?ids=${recipeIds.join(",")}&includeNutrition=false&apiKey=${import.meta.env.VITE_API_KEY}`;
+    const API_URL = `https://api.spoonacular.com/recipes/informationBulk?ids=${recipeIds.join(
+      ","
+    )}&includeNutrition=false&apiKey=${import.meta.env.VITE_API_KEY}`;
 
     try {
       const response = await axios.get(API_URL);
-      
+
       // Estrai solo id, instructions e readyInMinutes
-      const recipesDetails = response.data.map(recipe => ({
+      const recipesDetails = response.data.map((recipe) => ({
         id: recipe.id,
         instructions: recipe.instructions,
         readyInMinutes: recipe.readyInMinutes,
@@ -71,9 +80,11 @@ export const RecipesProvider = ({ children }) => {
       console.log("Dettagli delle ricette:", recipesDetails);
 
       // Se desideri settare anche questi dettagli nello stato
-      setRecipes(prevRecipes => 
-        prevRecipes.map(recipe => {
-          const details = recipesDetails.find(detail => detail.id === recipe.id);
+      setRecipes((prevRecipes) =>
+        prevRecipes.map((recipe) => {
+          const details = recipesDetails.find(
+            (detail) => detail.id === recipe.id
+          );
           return details ? { ...recipe, ...details } : recipe;
         })
       );
@@ -83,7 +94,17 @@ export const RecipesProvider = ({ children }) => {
   };
 
   return (
-    <RecipesContext.Provider value={{ recipes, setRecipes, query, setQuery, handleSearch, fetchBulkRecipeDetails }}>
+    <RecipesContext.Provider
+      value={{
+        recipes,
+        setRecipes,
+        query,
+        setQuery,
+        handleSearch,
+        fetchBulkRecipeDetails,
+        loading
+      }}
+    >
       {children}
     </RecipesContext.Provider>
   );

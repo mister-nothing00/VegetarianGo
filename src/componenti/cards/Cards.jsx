@@ -5,7 +5,8 @@ import {
   useBreakpointValue,
   Box,
   Icon,
-} from "@chakra-ui/react";
+  Spinner, // Importa Spinner
+ } from "@chakra-ui/react";
 import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import { GiFruitBowl } from "react-icons/gi";
 import { useState } from "react";
@@ -14,11 +15,10 @@ import CustomDivider from "../divider/CustomDivider";
 import { useRecipes } from "../../hooks/RecipesContext";
 
 export default function Cards() {
-  const { recipes } = useRecipes();
+  const { recipes, loading } = useRecipes(); // Ottieni anche lo stato di caricamento
   const [index, setIndex] = useState(0);
   const visibleCards = useBreakpointValue({ base: 1, sm: 2, md: 3 });
 
-  
   const handleNext = () => {
     setIndex((prevIndex) => (prevIndex + 1) % recipes.length);
   };
@@ -98,30 +98,34 @@ export default function Cards() {
           />
         </Flex>
 
-        <Flex
-          justifyContent="center"
-          alignItems="center"
-          wrap="nowrap"
-          gap={4}
-          transition="transform 0.4s ease-out"
-        >
-          {recipes && recipes.length > 0 ? (
-            recipes.slice(index, index + visibleCards).map((recipe, i) => (
-              <Flex key={i} mx={2} minW="30%" my={5}>
-                <Card
-                  id={recipe.id}
-                />
+        {loading ? ( // Mostra lo spinner se i dati sono in fase di caricamento
+          <Spinner size="xl" color="yellow.400" />
+        ) : (
+          <Flex
+            justifyContent="center"
+            alignItems="center"
+            wrap="nowrap"
+            gap={4}
+            transition="transform 0.4s ease-out"
+          >
+            {recipes && recipes.length > 0 ? (
+              recipes.slice(index, index + visibleCards).map((recipe, i) => (
+                <Flex key={i} mx={2} minW="30%" my={5}>
+                  <Card
+                    id={recipe.id}
+                  />
+                </Flex>
+              ))
+            ) : (
+              <Flex direction="column" align="center" py={6}>
+                <Icon as={GiFruitBowl} w={10} h={10} color="gray.400" />
+                <Text fontSize="xl" color="gray.500">
+                  Nessuna ricetta disponibile al momento
+                </Text>
               </Flex>
-            ))
-          ) : (
-            <Flex direction="column" align="center" py={6}>
-              <Icon as={GiFruitBowl} w={10} h={10} color="gray.400" />
-              <Text fontSize="xl" color="gray.500">
-                Nessuna ricetta disponibile al momento
-              </Text>
-            </Flex>
-          )}
-        </Flex>
+            )}
+          </Flex>
+        )}
 
         <Flex justifyContent="center" mt={4}>
           {recipes.map((_, i) => (

@@ -4,8 +4,8 @@ import { useParams, Link as RouterLink } from "react-router-dom";
 import { useRecipes } from "../../hooks/RecipesContext";
 
 export default function Recipes() {
-  const { id } = useParams(); // Assicurati di ottenere l'ID dalla URL
-  const { recipes } = useRecipes();
+  const { id } = useParams()
+  const { recipes} = useRecipes();
   const recipe = recipes.find((recipe) => recipe.id === parseInt(id));
 
   return (
